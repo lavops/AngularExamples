@@ -22,7 +22,8 @@ export class NoteCardComponent implements OnInit {
     let style = window.getComputedStyle(this.bodyText.nativeElement, null);
     let viewableHeight = parseInt(style.getPropertyValue("height"), 10);
 
-    if(this.bodyText.nativeElement.scrollHeight >= viewableHeight) {
+    //NE RADI OVO NESTO
+    if(this.bodyText.nativeElement.scrollHeight > viewableHeight) {
       this.renderer.setStyle(this.truncator.nativeElement, 'display', 'block');
     }
     else{
