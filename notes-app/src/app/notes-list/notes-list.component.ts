@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Note } from '../note.model';
+import { NotesService } from '../notes.service';
 
 @Component({
   selector: 'app-notes-list',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotesListComponent implements OnInit {
 
-  constructor() { }
+  notes: Note[] = new Array<Note>();
+
+  constructor(
+    private noteService: NotesService
+  ) { }
 
   ngOnInit(): void {
+
+    this.notes = this.noteService.getAll();
   }
 
+  deleteNote(id: number) {
+    this.noteService.delete(id);
+  }
 }

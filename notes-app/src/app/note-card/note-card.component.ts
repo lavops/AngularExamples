@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-note-card',
@@ -9,6 +9,9 @@ export class NoteCardComponent implements OnInit {
 
   @Input('title') title: string;
   @Input('body') body: string;
+  @Input('link') link: string;
+
+  @Output('delete') deleteEvent: EventEmitter<void> = new EventEmitter<void>();
 
   //MORA STATIC SAD SA VIEWCHILD
   @ViewChild('truncator', {static: true}) truncator: ElementRef<HTMLElement>;
@@ -29,6 +32,10 @@ export class NoteCardComponent implements OnInit {
     else{
       this.renderer.setStyle(this.truncator.nativeElement, 'display', 'none');
     }
+  }
+
+  onXButtonClick(){
+    this.deleteEvent.emit();
   }
 
 }
