@@ -1,0 +1,40 @@
+<div class="centered-content">
+    <div class="task-manager-container">
+        <div class="sidebar has-background-white">
+            <h1 class="title has-text-primary">
+                Lists
+            </h1>
+
+            <div class="list-menu">
+                <a class="list-menu-item" *ngFor="let list of lists" [routerLink]="['/lists',list._id]" routerLinkActive="is-active">
+                    <p>{{list.title}}</p>
+                </a>
+            </div>
+
+            <button class="button is-primary has-text-white" routerLink="/new-list">
+                + New List
+            </button>
+        </div>
+        <div class="task-list-container has-background-light">
+            <div *ngIf="tasks">
+                <h1 class="title has-text-primary">
+                    Tasks
+                </h1>
+    
+                <div class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)" [ngClass]="{'completed': task.completed}">
+                    <p>{{task.title}}</p>
+                </div>
+
+                <h3 class="title is-4 has-text-primary" *ngIf="tasks.length === 0">No Tasks!</h3>
+                
+                <button class="button is-primary has-text-white circle-add-button" routerLink="./new-task">
+                    +
+                </button>
+            </div>
+
+            <div *ngIf="!tasks">
+                <h3 class="title is-4 has-text-primary">Please select a list from the sidebar.</h3>
+            </div>
+        </div>
+    </div>
+</div>
