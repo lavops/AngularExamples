@@ -4,6 +4,7 @@
     </div>
 
     <div class="col-md-5">
-        <app-recipe-detail [recipe]="selectedRecipe" *ngIf="selectedRecipe != null"></app-recipe-detail>
+        <router-outlet></router-outlet>
+        <!-- <app-recipe-detail [recipe]="selectedRecipe" *ngIf="selectedRecipe != null"></app-recipe-detail> -->
     </div>
 </div>
