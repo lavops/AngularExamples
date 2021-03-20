@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpEventType } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 import { Post } from './post.model';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class PostsService {
   createAndStorePost(title: string, content: string) {
     const postData: Post = {title: title, content: content};
 
-    this.http.post(this.serverURL, postData)
+    this.http.post(this.serverURL, postData, {observe: 'response'})
       .subscribe(response => {
         console.log(response);
       }, error => {
@@ -28,8 +28,19 @@ export class PostsService {
   }
 
   fetchPosts() {
-    return this.http.get<{[key: string]: Post}>(this.serverURL)
-      .pipe(map(response => {
+
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'pretty');
+    searchParams = searchParams.append('custom', 'key');
+
+    return this.http.get<{[key: string]: Post}>(
+        this.serverURL,
+        {
+          headers: new HttpHeaders({ 'Custom-Header': 'Hello' }),
+          params: searchParams,
+          responseType: 'json'
+        }
+      ).pipe(map(response => {
         const postsArray: Post[] = [];
         for (const key in response) {
           if(response.hasOwnProperty(key)){
@@ -41,10 +52,20 @@ export class PostsService {
         // Send to analytics server
         return throwError(error);
       })
-      );
+    );
   }
 
   deletePosts() {
-    return this.http.delete(this.serverURL);
+    return this.http.delete(this.serverURL, {observe: 'events', responseType: 'text'})
+      .pipe(tap(event => {
+        console.log(event);
+        if(event.type === HttpEventType.Response) {
+          //
+        }
+        if(event.type === HttpEventType.Response) {
+          console.log(event.body);
+        }
+      })
+    );
   }
 }
