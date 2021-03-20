@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { Post } from './post.model';
 
 @Injectable({
@@ -9,6 +10,7 @@ import { Post } from './post.model';
 export class PostsService {
 
   private serverURL = 'https://angularcoursehttprequests-default-rtdb.firebaseio.com/posts.json'
+  error = new Subject<string>();
 
   constructor(
     private http: HttpClient
@@ -20,6 +22,8 @@ export class PostsService {
     this.http.post(this.serverURL, postData)
       .subscribe(response => {
         console.log(response);
+      }, error => {
+        this.error.next(error.message);
       });
   }
 
@@ -33,7 +37,11 @@ export class PostsService {
           }
         }
         return postsArray;
-      }));
+      }), catchError((error: any) => {
+        // Send to analytics server
+        return throwError(error);
+      })
+      );
   }
 
   deletePosts() {
