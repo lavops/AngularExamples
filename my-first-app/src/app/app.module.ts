@@ -6,8 +6,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, FormsModule, HttpClientModule],
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule, 
+    FormsModule, 
+    HttpClientModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
