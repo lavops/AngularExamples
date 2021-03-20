@@ -11,26 +11,6 @@ export class RecipeService {
 
   recipesChanged = new Subject<Recipe[]>();
   private recipes: Recipe[] = [];
-  // recipes: Recipe[] = [
-  //   new Recipe(
-  //     "Sarma", 
-  //     "Ovo je recept za sarmu", 
-  //     "https://www.blondelish.com/wp-content/uploads/2020/04/Keto-Stuffed-Cabbage-Rolls-Gluten-Free-Low-Carb-Recipe-10.jpg",
-  //     [
-  //       new Ingredient("Kupus", 1),
-  //       new Ingredient("Meso", 5)
-  //     ]
-  //   ),
-  //   new Recipe(
-  //     "Burger", 
-  //     "Ovo je recept za Burger", 
-  //     "https://happilyunprocessed.com/wp-content/uploads/2018/03/Juicest-Burger-Everfeature.jpg.jpg",
-  //     [
-  //       new Ingredient("Meso", 1),
-  //       new Ingredient("Luk", 1)
-  //     ]
-  //   ),
-  // ];
 
   constructor(
     private shoppingListService: ShoppingListService
