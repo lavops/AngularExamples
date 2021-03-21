@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from '../models/user.model';
 
 export interface AuthResponseData {
   kind: string;
@@ -11,6 +12,7 @@ export interface AuthResponseData {
   refreshToken: string;
   expiresIn: string;
   localId: string;
+  registered?: boolean;
 }
 
 @Injectable({
@@ -21,6 +23,7 @@ export class AuthService {
   private signupURL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
   private loginURL = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
   private API_KEY = environment.ANGULAR_APP_FIREBASE_API_KEY;
+  user = new Subject<User>();
 
   constructor(
     private http: HttpClient
@@ -33,7 +36,10 @@ export class AuthService {
       returnSecureToken: true
     };
 
-    return this.http.post<AuthResponseData>(this.signupURL + this.API_KEY, body).pipe(catchError(this.handleError));
+    return this.http.post<AuthResponseData>(this.signupURL + this.API_KEY, body)
+      .pipe(catchError(this.handleError), tap(response => {
+        this.handleAuthentication(response.email, response.localId, response.idToken, +response.expiresIn);
+      }));
   }
 
   login(email: string, password: string) {
@@ -43,7 +49,17 @@ export class AuthService {
       returnSecureToken: true
     };
 
-    return this.http.post<AuthResponseData>(this.loginURL + this.API_KEY, body).pipe(catchError(this.handleError));
+    return this.http.post<AuthResponseData>(this.loginURL + this.API_KEY, body)
+      .pipe(catchError(this.handleError), tap(response => {
+        this.handleAuthentication(response.email, response.localId, response.idToken, +response.expiresIn);
+      }));
+  }
+
+  private handleAuthentication(email: string, localId:string, idToken: string, expiresIn: number) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
+    const user = new User(email, localId, idToken, expirationDate);
+
+    this.user.next(user);
   }
 
   private handleError(error: HttpErrorResponse) {
