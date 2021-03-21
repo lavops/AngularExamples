@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
-import { Subject, throwError } from 'rxjs';
+import { BehaviorSubject, Subject, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
 
@@ -23,7 +23,7 @@ export class AuthService {
   private signupURL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
   private loginURL = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
   private API_KEY = environment.ANGULAR_APP_FIREBASE_API_KEY;
-  user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
 
   constructor(
     private http: HttpClient
