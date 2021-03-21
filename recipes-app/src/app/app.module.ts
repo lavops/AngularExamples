@@ -19,6 +19,7 @@ import { RecipeEditComponent } from './components/recipes/recipe-edit/recipe-edi
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataStorageService } from './services/data-storage.service';
 import { AuthComponent } from './components/auth/auth.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AuthComponent } from './components/auth/auth.component';
   providers: [
     RecipeService,
     ShoppingListService,
-    DataStorageService
+    DataStorageService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
