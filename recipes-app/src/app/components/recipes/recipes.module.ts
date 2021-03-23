@@ -24,10 +24,7 @@ import { RecipesComponent } from "./recipes.component";
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        AppRoutingModule,
         RecipesRoutingModule
     ],
-    providers: [],
-    bootstrap: []
 })
 export class RecipesModule {}
