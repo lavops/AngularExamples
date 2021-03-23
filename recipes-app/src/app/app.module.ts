@@ -5,11 +5,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
-import { RecipesModule } from './components/recipes/recipes.module';
-import { ShoppingListModule } from './components/shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
-import { AuthModule } from './components/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -19,10 +16,10 @@ import { AuthModule } from './components/auth/auth.module';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule, 
-    RecipesModule,
-    ShoppingListModule,
-    AuthModule,
+    AppRoutingModule,
+    //RecipesModule, => Izbacen zbog Lazy Loading-a u app-routing.module.ts
+    //ShoppingListModule, => Izbacen zbog Lazy Loading-a u app-routing.module.ts
+    //AuthModule, => Izbacen zbog Lazy Loading-a u app-routing.module.ts
     SharedModule,
     CoreModule
   ],
