@@ -5,12 +5,10 @@ import { AuthGuard } from "./services/auth.guard";
 import { AuthService } from "./services/auth.service";
 import { DataStorageService } from "./services/data-storage.service";
 import { RecipeService } from "./services/recipe.service";
-import { ShoppingListService } from "./services/shopping-list.service";
 
 @NgModule({
     providers: [
         RecipeService,
-        ShoppingListService,
         DataStorageService,
         AuthService,
         AuthGuard,
