@@ -1,14 +1,14 @@
 import { Action } from "@ngrx/store";
 
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+export const LOGIN = '[Auth] Login';
+export const LOGOUT = '[Auth] Logout';
 
 export type AuthActions = Login | Logout;
 
 export class Login implements Action {
     readonly type = LOGIN;
     public payload: {email: string, userId: string, token: string, expirationDate: Date};
-    
+
     constructor(payload: {email: string, userId: string, token: string, expirationDate: Date}) {
         this.payload = payload;
     }
