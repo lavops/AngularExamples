@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
-import { shoppingListReducer } from './store/shopping-list.reducer';
+import * as fromApp from './store/app.reducer';
 
 
 
@@ -24,7 +24,7 @@ import { shoppingListReducer } from './store/shopping-list.reducer';
     //RecipesModule, => Izbacen zbog Lazy Loading-a u app-routing.module.ts
     //ShoppingListModule, => Izbacen zbog Lazy Loading-a u app-routing.module.ts
     //AuthModule, => Izbacen zbog Lazy Loading-a u app-routing.module.ts
-    StoreModule.forRoot({shoppingList: shoppingListReducer}),
+    StoreModule.forRoot(fromApp.appReducer),
     SharedModule,
     CoreModule
   ],
