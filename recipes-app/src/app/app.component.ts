@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import * as fromApp from './store/app.reducer';
+import * as AuthActions from './store/auth.actions';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -10,10 +13,10 @@ export class AppComponent implements OnInit{
   title = 'recipes-app';
 
   constructor(
-    private authService: AuthService
+    private store: Store<fromApp.AppState>
   ) {}
 
   ngOnInit(): void {
-    this.authService.autoLogin();
+    this.store.dispatch(new AuthActions.AutoLogin());
   }
 }
