@@ -1,9 +1,8 @@
-import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthService } from 'src/app/services/auth.service';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from '../../store/auth.actions';

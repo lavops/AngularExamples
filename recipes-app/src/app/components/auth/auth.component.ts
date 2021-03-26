@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { AuthService, AuthResponseData } from 'src/app/services/auth.service';
+import { Subscription } from 'rxjs';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from '../../store/auth.actions';
 @Component({
