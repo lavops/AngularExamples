@@ -37,18 +37,18 @@ export class AuthService {
     private store: Store<fromApp.AppState>
   ) { }
 
-  signup(email: string, password: string) {
-    let body = {
-      email: email,
-      password: password,
-      returnSecureToken: true
-    };
+  // signup(email: string, password: string) {
+  //   let body = {
+  //     email: email,
+  //     password: password,
+  //     returnSecureToken: true
+  //   };
 
-    return this.http.post<AuthResponseData>(this.signupURL + this.API_KEY, body)
-      .pipe(catchError(this.handleError), tap(response => {
-        this.handleAuthentication(response.email, response.localId, response.idToken, +response.expiresIn);
-      }));
-  }
+  //   return this.http.post<AuthResponseData>(this.signupURL + this.API_KEY, body)
+  //     .pipe(catchError(this.handleError), tap(response => {
+  //       this.handleAuthentication(response.email, response.localId, response.idToken, +response.expiresIn);
+  //     }));
+  // }
 
   autoLogin() {
     const userData: {email: string, localId: string, _token: string, _tokenExpirationDate: string} = JSON.parse(localStorage.getItem('userData'));
@@ -70,18 +70,18 @@ export class AuthService {
     }
   }
 
-  login(email: string, password: string) {
-    let body = {
-      email: email,
-      password: password,
-      returnSecureToken: true
-    };
+  // login(email: string, password: string) {
+  //   let body = {
+  //     email: email,
+  //     password: password,
+  //     returnSecureToken: true
+  //   };
 
-    return this.http.post<AuthResponseData>(this.loginURL + this.API_KEY, body)
-      .pipe(catchError(this.handleError), tap(response => {
-        this.handleAuthentication(response.email, response.localId, response.idToken, +response.expiresIn);
-      }));
-  }
+  //   return this.http.post<AuthResponseData>(this.loginURL + this.API_KEY, body)
+  //     .pipe(catchError(this.handleError), tap(response => {
+  //       this.handleAuthentication(response.email, response.localId, response.idToken, +response.expiresIn);
+  //     }));
+  // }
 
   autoLogout(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
@@ -97,34 +97,33 @@ export class AuthService {
     }
     this.tokenExpirationTimer = null;
     localStorage.removeItem('userData');
-    this.router.navigate(['/auth']);
   }
 
-  private handleAuthentication(email: string, localId:string, idToken: string, expiresIn: number) {
-    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
-    const user = new User(email, localId, idToken, expirationDate);
+  // private handleAuthentication(email: string, localId:string, idToken: string, expiresIn: number) {
+  //   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
+  //   const user = new User(email, localId, idToken, expirationDate);
 
-    localStorage.setItem('userData', JSON.stringify(user));
+  //   localStorage.setItem('userData', JSON.stringify(user));
 
-    //this.user.next(user);
-    this.store.dispatch(new AuthActions.AuthenticateSuccess({email: user.email, userId: user.id, token: user.token, expirationDate:  expirationDate}))
-    this.autoLogout(expiresIn * 1000);
-  }
+  //   //this.user.next(user);
+  //   this.store.dispatch(new AuthActions.AuthenticateSuccess({email: user.email, userId: user.id, token: user.token, expirationDate:  expirationDate}))
+  //   this.autoLogout(expiresIn * 1000);
+  // }
 
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred!';
+  // private handleError(error: HttpErrorResponse) {
+  //   let errorMessage = 'An unknown error occurred!';
     
-    if(!error.error || !error.error.error){
-      return throwError(errorMessage);
-    }
+  //   if(!error.error || !error.error.error){
+  //     return throwError(errorMessage);
+  //   }
 
-    switch(error.error.error.message) {
-      case 'EMAIL_EXISTS': errorMessage = 'This email exists already'; break;
-      case 'EMAIL_NOT_FOUND': errorMessage = 'This email was not found!'; break;
-      case 'INVALID_PASSWORD': errorMessage = 'Invalid password!'; break;
-      case 'USER_DISABLED': errorMessage = 'This user is disabled!'; break;
-    }
+  //   switch(error.error.error.message) {
+  //     case 'EMAIL_EXISTS': errorMessage = 'This email exists already'; break;
+  //     case 'EMAIL_NOT_FOUND': errorMessage = 'This email was not found!'; break;
+  //     case 'INVALID_PASSWORD': errorMessage = 'Invalid password!'; break;
+  //     case 'USER_DISABLED': errorMessage = 'This user is disabled!'; break;
+  //   }
 
-    return throwError(errorMessage);
-  }
+  //   return throwError(errorMessage);
+  // }
 }

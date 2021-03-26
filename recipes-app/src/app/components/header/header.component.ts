@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import * as fromApp from '../../store/app.reducer';
+import * as AuthActions from '../../store/auth.actions';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -19,7 +20,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   
   constructor(
     private dataStorageService: DataStorageService,
-    private authService: AuthService,
     private store: Store<fromApp.AppState>
   ) { }
 
@@ -40,12 +40,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    this.authService.logout();
+    this.store.dispatch(new AuthActions.Logout());
   }
 
   onFetchData() {
     this.dataStorageService.fetchRecipes().subscribe((recipes) => {
-      //console.log(recipes);
     });
   }
 }
