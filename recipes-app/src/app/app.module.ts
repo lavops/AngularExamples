@@ -32,7 +32,7 @@ import { environment } from 'src/environments/environment';
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
-    StoreRouterConnectingModule.forRoot(),
+    //StoreRouterConnectingModule.forRoot(),
     SharedModule,
     CoreModule
   ],

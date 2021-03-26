@@ -1,10 +1,11 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { exhaustMap, map, take, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import {  map, tap } from 'rxjs/operators';
 import { Recipe } from '../models/recipe.model';
-import { AuthService } from './auth.service';
 import { RecipeService } from './recipe.service';
-
+import * as fromApp from '../store/app.reducer';
+import * as RecipeActions from '../store/recipe.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class DataStorageService {
   constructor(
     private http: HttpClient,
     private recipeService: RecipeService,
-    private authService: AuthService
+    private store: Store<fromApp.AppState>
   ) { }
 
   storeRecipes() {
@@ -37,7 +38,8 @@ export class DataStorageService {
           return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []}
         });
       }), tap(recipes => {
-        this.recipeService.setRecipes(recipes);
+        // this.recipeService.setRecipes(recipes);
+        this.store.dispatch(new RecipeActions.SetRecipes(recipes));
       })
     );
 
