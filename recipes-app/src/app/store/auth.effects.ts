@@ -36,12 +36,12 @@ export class AuthEffects {
             return this.http.post<AuthResponseData>(this.loginURL + this.API_KEY, body).pipe(
                 map(resData => {
                     const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000)
-                    return new AuthActions.Login({email: resData.email, userId: resData.localId, token: resData.idToken, expirationDate: expirationDate });
+                    return new AuthActions.AuthenticateSuccess({email: resData.email, userId: resData.localId, token: resData.idToken, expirationDate: expirationDate });
                 }), catchError(error => {
                     let errorMessage = 'An unknown error occurred!';
     
                     if(!error.error || !error.error.error){
-                        return of(new AuthActions.LoginFail(errorMessage));
+                        return of(new AuthActions.AuthenticateFail(errorMessage));
                     }
 
                     switch(error.error.error.message) {
@@ -51,13 +51,13 @@ export class AuthEffects {
                         case 'USER_DISABLED': errorMessage = 'This user is disabled!'; break;
                     }
                     
-                    return of(new AuthActions.LoginFail(errorMessage));
+                    return of(new AuthActions.AuthenticateFail(errorMessage));
                 }),);
         }), 
     );
 
     @Effect({dispatch: false})
-    authSuccess = this.actions$.pipe(ofType(AuthActions.LOGIN), tap(() => {
+    authSuccess = this.actions$.pipe(ofType(AuthActions.AUTHENTICATE_SUCCESS), tap(() => {
         this.router.navigate(['/']);
     }));
 
