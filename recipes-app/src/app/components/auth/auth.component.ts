@@ -38,7 +38,6 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm) {
-    this.error = null;
 
     if (!form.valid) {
       return;
@@ -59,6 +58,6 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   onHandleError() {
-    this.error = null;
+    this.store.dispatch(new AuthActions.ClearError());
   }
 }
