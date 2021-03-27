@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 
-import { RecipeService } from 'src/app/services/recipe.service';
 import { Ingredient } from 'src/app/models/ingredient.model';
 import { Recipe } from '../../../models/recipe.model';
 
@@ -28,7 +27,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private recipeService: RecipeService,
     private store: Store<fromApp.AppState>
   ) { }
 
