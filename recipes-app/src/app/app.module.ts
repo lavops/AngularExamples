@@ -14,6 +14,7 @@ import { CoreModule } from './core.module';
 import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './store/auth.effects';
 import { environment } from 'src/environments/environment';
+import { RecipeEffects } from './store/recipe.effects';
 
 
 
@@ -30,7 +31,10 @@ import { environment } from 'src/environments/environment';
     //ShoppingListModule, => Izbacen zbog Lazy Loading-a u app-routing.module.ts
     //AuthModule, => Izbacen zbog Lazy Loading-a u app-routing.module.ts
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([
+      AuthEffects, 
+      RecipeEffects
+    ]),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
     //StoreRouterConnectingModule.forRoot(),
     SharedModule,
