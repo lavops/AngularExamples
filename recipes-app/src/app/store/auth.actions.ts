@@ -12,9 +12,9 @@ export type AuthActions = AuthenticateSuccess | Logout | LoginStart | Authentica
 
 export class AuthenticateSuccess implements Action {
     readonly type = AUTHENTICATE_SUCCESS;
-    public payload: {email: string, userId: string, token: string, expirationDate: Date};
+    public payload: {email: string, userId: string, token: string, expirationDate: Date, redirect: boolean};
 
-    constructor(payload: {email: string, userId: string, token: string, expirationDate: Date}) {
+    constructor(payload: {email: string, userId: string, token: string, expirationDate: Date, redirect: boolean}) {
         this.payload = payload;
     }
 }
