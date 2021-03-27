@@ -5,6 +5,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { Recipe } from '../../../models/recipe.model';
 import * as fromApp from '../../../store/app.reducer';
+import * as ShoppingListActions from '../../../store/shopping-list.actions';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -46,7 +47,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onAddShoppingList() {
-    this.recipesService.addIngredientsToShoppingList(this.recipe.ingredients);
+    this.store.dispatch(new ShoppingListActions.AddIngredients(this.recipe.ingredients));
   }
 
   onEditRecipe() {

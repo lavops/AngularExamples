@@ -35,7 +35,7 @@ export function shoppingListReducer(state: State = initialState, action: Shoppin
 
         case ShoppingListActions.DELETE_INGREDIENT:
             return {...state, ingredients: state.ingredients.filter((ingredient, ingredientIndex) => { // Funkcija mora da primi dva argumenta objekat i njego ID u array-u
-                return ingredientIndex != state.editedIngredientIndex;
+                return ingredientIndex !== state.editedIngredientIndex;
             }), editedIngredientIndex: -1, editedIngredient: null};
 
         case ShoppingListActions.START_EDIT:
