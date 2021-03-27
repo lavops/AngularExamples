@@ -6,7 +6,7 @@ import { RecipeService } from 'src/app/services/recipe.service';
 import { Recipe } from '../../../models/recipe.model';
 import * as fromApp from '../../../store/app.reducer';
 import * as ShoppingListActions from '../../../store/shopping-list.actions';
-
+import * as RecipeActions from '../../../store/recipe.actions';
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
@@ -55,7 +55,8 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onDeleteRecipe() {
-    this.recipesService.deleteRecipe(this.id);
+    //this.recipesService.deleteRecipe(this.id);
+    this.store.dispatch(new RecipeActions.DeleteRecipe(this.id))
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 }
