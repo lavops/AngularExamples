@@ -2,7 +2,7 @@
 
 Following [Angular Tutorial](https://angular.io/tutorial) 
 
-Table of context:
+Table of contents:
 
  - Use built-in Angular `directives` to show and hide elements and display lists of hero data.
  - Create Angular `components` to display hero details and show an array of heroes.
