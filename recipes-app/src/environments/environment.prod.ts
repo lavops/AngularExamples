@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  ANGULAR_APP_FIREBASE_API_KEY: ''
 };
