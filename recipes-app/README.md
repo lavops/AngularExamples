@@ -1,5 +1,7 @@
 # RecipesApp
 
+[Application on firebase](https://angularcourseprojectrecipes.web.app/auth)
+
 Following [Angular - The Complete Guide](https://www.udemy.com/course/the-complete-guide-to-angular-2/) 
 
 Table of contents:
